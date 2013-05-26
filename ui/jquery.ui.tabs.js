@@ -22,6 +22,10 @@ function getNextTabId() {
 }
 
 function isLocal( anchor ) {
+	// support: IE7
+	// IE7 doesn't normalize the href property when set via script (#9317)
+	anchor = anchor.cloneNode( false );
+
 	return anchor.hash.length > 1 &&
 		decodeURIComponent( anchor.href.replace( rhash, "" ) ) ===
 			decodeURIComponent( location.href.replace( rhash, "" ) );
@@ -150,7 +154,6 @@ $.widget( "ui.tabs", {
 	},
 
 	_tabKeydown: function( event ) {
-		/*jshint maxcomplexity:15*/
 		var focusedTab = $( this.document[0].activeElement ).closest( "li" ),
 			selectedIndex = this.tabs.index( focusedTab ),
 			goingForward = true;
