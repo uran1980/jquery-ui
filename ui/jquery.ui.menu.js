@@ -174,7 +174,6 @@ $.widget( "ui.menu", {
 	},
 
 	_keydown: function( event ) {
-		/*jshint maxcomplexity:20*/
 		var match, prev, character, skip, regex,
 			preventDefault = true;
 
@@ -349,6 +348,11 @@ $.widget( "ui.menu", {
 			this.element.find( ".ui-menu-icon" )
 				.removeClass( this.options.icons.submenu )
 				.addClass( value.submenu );
+		}
+		if ( key === "disabled" ) {
+			this.element
+				.toggleClass( "ui-state-disabled", !!value )
+				.attr( "aria-disabled", value );
 		}
 		this._super( key, value );
 	},
